@@ -20,6 +20,7 @@ namespace CSGOTraderBot
         {
             InitializeComponent();
             InitializeTimer();
+            ResetConfig();
         }
 
         private void InitializeTimer()
@@ -35,6 +36,12 @@ namespace CSGOTraderBot
 
                 _timerBot.Tick += new EventHandler(Timer_Tick);
             }
+        }
+
+        private void ResetConfig()
+        {
+            Helper.Config.Set("sessionid", string.Empty, "SteamSettings");
+            //Helper.Config.Set("steamLoginSecure", string.Empty, "SteamSettings");
         }
 
         #region Events
