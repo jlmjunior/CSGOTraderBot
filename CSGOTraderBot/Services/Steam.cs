@@ -24,14 +24,6 @@ namespace CSGOTraderBot.Services
             {
                 var result = Task.Run(() => steamOffer.LoginSuccess()).Result;
 
-                if (!result.Success)
-                {
-                    var resultLogin = Task.Run(() => TryLogin()).Result;
-
-                    if (resultLogin.Success) 
-                        result.Success = true;
-                }
-
                 if (result.Success)
                 {
                     if (result.Additional != null)
@@ -65,11 +57,6 @@ namespace CSGOTraderBot.Services
                     Message = new List<string> { "Falha ao tentar se comunicar com o servidor da steam." }
                 });
             }
-        }
-
-        public Task<ResultModel> TryLogin()
-        {
-            return null;
         }
     }
 }

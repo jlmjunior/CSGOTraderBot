@@ -30,9 +30,7 @@ namespace CSGOTraderBot.UserControls
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtBoxSteamId = new System.Windows.Forms.TextBox();
             this.lblConfig1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtBoxTimer = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,6 +41,8 @@ namespace CSGOTraderBot.UserControls
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBoxCookieSessionId = new System.Windows.Forms.TextBox();
+            this.txtBoxSteamId = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -64,15 +64,6 @@ namespace CSGOTraderBot.UserControls
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuration";
             // 
-            // txtBoxSteamId
-            // 
-            this.txtBoxSteamId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxSteamId.Location = new System.Drawing.Point(145, 69);
-            this.txtBoxSteamId.Margin = new System.Windows.Forms.Padding(9);
-            this.txtBoxSteamId.Name = "txtBoxSteamId";
-            this.txtBoxSteamId.Size = new System.Drawing.Size(416, 23);
-            this.txtBoxSteamId.TabIndex = 8;
-            // 
             // lblConfig1
             // 
             this.lblConfig1.AutoSize = true;
@@ -81,15 +72,6 @@ namespace CSGOTraderBot.UserControls
             this.lblConfig1.Size = new System.Drawing.Size(115, 15);
             this.lblConfig1.TabIndex = 1;
             this.lblConfig1.Text = "Timer (milliseconds)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(67, 72);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Steam64 ID";
             // 
             // txtBoxTimer
             // 
@@ -160,7 +142,6 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSteamLoginSecure
             // 
             this.txtBoxCookieSteamLoginSecure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxCookieSteamLoginSecure.Enabled = false;
             this.txtBoxCookieSteamLoginSecure.Location = new System.Drawing.Point(145, 69);
             this.txtBoxCookieSteamLoginSecure.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSteamLoginSecure.Name = "txtBoxCookieSteamLoginSecure";
@@ -188,12 +169,29 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSessionId
             // 
             this.txtBoxCookieSessionId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxCookieSessionId.Enabled = false;
             this.txtBoxCookieSessionId.Location = new System.Drawing.Point(145, 28);
             this.txtBoxCookieSessionId.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSessionId.Name = "txtBoxCookieSessionId";
             this.txtBoxCookieSessionId.Size = new System.Drawing.Size(416, 23);
             this.txtBoxCookieSessionId.TabIndex = 0;
+            // 
+            // txtBoxSteamId
+            // 
+            this.txtBoxSteamId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxSteamId.Location = new System.Drawing.Point(145, 69);
+            this.txtBoxSteamId.Margin = new System.Windows.Forms.Padding(9);
+            this.txtBoxSteamId.Name = "txtBoxSteamId";
+            this.txtBoxSteamId.Size = new System.Drawing.Size(416, 23);
+            this.txtBoxSteamId.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(67, 72);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 15);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Steam64 ID";
             // 
             // ucSettingsGeneral
             // 
