@@ -26,9 +26,9 @@ namespace CSGOTraderBot.Services
 
                 if (!result.Success)
                 {
-                    var resultLogin = Task.Run(() => TryLogin()).Result;
+                    var loginSuccess = TryLogin();
 
-                    if (resultLogin.Success) 
+                    if (loginSuccess) 
                         result.Success = true;
                 }
 
@@ -67,9 +67,34 @@ namespace CSGOTraderBot.Services
             }
         }
 
-        public Task<ResultModel> TryLogin()
+        public bool TryLogin()
         {
-            return null;
+            var steamLogin = new SteamTrade.Login(
+                Helper.Config.Get("steamRememberLogin", "SteamSettings"),
+                Helper.Config.Get("steamMachineAuth", "SteamSettings"),
+                Helper.Config.Get("idSteam64", "SteamSettings"));
+
+            var result = Task.Run(() => steamLogin.GetCookies()).Result;
+
+            if (result.Success)
+            {
+                if (result.Additional != null)
+                {
+                    var propertyInfoSession = result.Additional.GetType().GetProperty("sessionId");
+                    var valueSession = propertyInfoSession.GetValue(result.Additional);
+
+                    Helper.Config.Set("sessionid", valueSession.ToString(), "SteamSettings");
+
+                    var propertyInfoLoginSecure = result.Additional.GetType().GetProperty("steamLoginSecure");
+                    var valueLoginSecure = propertyInfoLoginSecure.GetValue(result.Additional);
+
+                    Helper.Config.Set("steamLoginSecure", valueLoginSecure.ToString(), "SteamSettings");
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

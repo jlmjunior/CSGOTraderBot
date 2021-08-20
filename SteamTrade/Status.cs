@@ -28,6 +28,13 @@ namespace SteamTrade
 
         public async Task<ResultModel> LoginSuccess()
         {
+            if (string.IsNullOrWhiteSpace(_steamLoginSecure))
+                return new ResultModel()
+                {
+                    Success = false,
+                    Messages = new List<string>() { "Falha na autenticação." }
+                };
+
             HttpResponseMessage result = null;
             object additional = null;
 
@@ -38,26 +45,11 @@ namespace SteamTrade
                     new Cookie("steamLoginSecure", _steamLoginSecure)
                 };
 
-                var baseAddress = new Uri(_urlGetNotificationCounts);
-                var cookieContainer = new CookieContainer();
+                var cookiesResult = Task.Run(() => request.GetAsyncReturnCookies(_urlGetNotificationCounts, cookies)).Result;
 
-                using (var handler = new HttpClientHandler() { CookieContainer = cookieContainer })
-                using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
+                if (cookiesResult.StatusCode == HttpStatusCode.OK && cookiesResult.Cookies != null)
                 {
-                    client.DefaultRequestHeaders.Accept.Clear();
-
-                    cookies.ForEach(c => cookieContainer.Add(baseAddress, c));
-
-                    client.DefaultRequestHeaders.Accept
-                        .Add(new MediaTypeWithQualityHeaderValue("*/*"));
-
-                    client.DefaultRequestHeaders.UserAgent
-                        .ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
-
-                    result = await client.GetAsync(baseAddress);
-
-                    var sessionIdCookie = handler.CookieContainer
-                        .GetCookies(new Uri(_urlGetNotificationCounts))["sessionId"].Value;
+                    var sessionIdCookie = cookiesResult.Cookies["sessionId"].Value;
 
                     if (!string.IsNullOrWhiteSpace(sessionIdCookie))
                         additional = new
@@ -65,6 +57,11 @@ namespace SteamTrade
                             sessionId = sessionIdCookie
                         };
                 }
+
+                result = new HttpResponseMessage
+                {
+                    StatusCode = (additional == null && cookiesResult.StatusCode == HttpStatusCode.OK) ? HttpStatusCode.NotFound : cookiesResult.StatusCode
+                };
             }
             else
             {
@@ -77,8 +74,11 @@ namespace SteamTrade
                 result = await request.GetAsync(_urlGetNotificationCounts, cookies);
             }
 
+            HttpStatusCode statusCode = result.IsSuccessStatusCode ? HttpStatusCode.OK : result.StatusCode;
+            result.Dispose();
+
             #region RESULTS
-            if (result.IsSuccessStatusCode)
+            if (statusCode == HttpStatusCode.OK)
             {
                 return new ResultModel()
                 {
@@ -87,7 +87,7 @@ namespace SteamTrade
                     Additional = additional
                 };
             }
-            else if (result.StatusCode == HttpStatusCode.Unauthorized)
+            else if (statusCode == HttpStatusCode.Unauthorized)
             {
                 return new ResultModel()
                 {

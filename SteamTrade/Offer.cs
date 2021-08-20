@@ -15,7 +15,7 @@ namespace SteamTrade
         private readonly Request request;
 
         private readonly string _sessionId;
-        private readonly string _steamLoginSecure;
+        private string _steamLoginSecure;
 
         public Offer(string sessionId, string steamLoginSecure)
         {
@@ -23,6 +23,11 @@ namespace SteamTrade
 
             _sessionId = sessionId;
             _steamLoginSecure = steamLoginSecure;
+        }
+
+        public void SetSteamLoginSecure(string value)
+        {
+            _steamLoginSecure = value;
         }
 
         public async Task<ResultModel> Send(OfferModel offer)

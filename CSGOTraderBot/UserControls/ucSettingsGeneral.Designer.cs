@@ -160,7 +160,6 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSteamLoginSecure
             // 
             this.txtBoxCookieSteamLoginSecure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxCookieSteamLoginSecure.Enabled = false;
             this.txtBoxCookieSteamLoginSecure.Location = new System.Drawing.Point(145, 69);
             this.txtBoxCookieSteamLoginSecure.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSteamLoginSecure.Name = "txtBoxCookieSteamLoginSecure";

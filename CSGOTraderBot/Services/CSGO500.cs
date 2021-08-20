@@ -196,6 +196,18 @@ namespace CSGOTraderBot.Services
 
                 var resultSteamConfirm = Task.Run(() => steamOffer.Send(offer)).Result;
 
+                if (!resultSteamConfirm.Success)
+                {
+                    var steam = new Steam();
+                    var resultLogin = Task.Run(() => steam.CheckLogin()).Result;
+
+                    if (resultLogin.Success)
+                    {
+                        steamOffer.SetSteamLoginSecure(Helper.Config.Get("steamLoginSecure", "SteamSettings"));
+                        resultSteamConfirm = Task.Run(() => steamOffer.Send(offer)).Result;
+                    }   
+                }
+
                 if (resultSteamConfirm.Success)
                     result.Message.Add($"Steam - Oferta enviada para o perfil {item.RequestOpenId} do item: {itemWaitForTradeOffer.Name}");
                 else
@@ -204,7 +216,6 @@ namespace CSGOTraderBot.Services
                     result.Message.Add($"Steam - Falha ao enviar o item: {itemWaitForTradeOffer.Name} para o perfil {item.RequestOpenId}");
                     result.Message.AddRange(resultSteamConfirm.Messages);
                 }
-                   
             }
 
             return result;
