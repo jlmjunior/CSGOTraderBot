@@ -43,13 +43,13 @@ namespace SteamTrade
             if (cookiesResult.StatusCode == HttpStatusCode.OK && cookiesResult.Cookies != null)
             {
                 var sessionIdCookie = cookiesResult.Cookies["sessionId"].Value;
-                var steamLoginSecureCookie = cookiesResult.Cookies["steamLoginSecure"].Value;
+                var LoginCookie = cookiesResult.Cookies["steamLoginSecure"].Value;
 
-                if (!string.IsNullOrWhiteSpace(sessionIdCookie) && !string.IsNullOrWhiteSpace(steamLoginSecureCookie))
+                if (!string.IsNullOrWhiteSpace(sessionIdCookie) && !string.IsNullOrWhiteSpace(LoginCookie))
                     additional = new
                     {
                         sessionId = sessionIdCookie,
-                        steamLoginSecure = steamLoginSecureCookie
+                        steamLoginSecure = LoginCookie
                     };
             }
 
