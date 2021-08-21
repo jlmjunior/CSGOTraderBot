@@ -130,6 +130,10 @@
     <None Include="Resources\1200px-Info_icon-72a7cf.svg.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SteamAuth\SteamAuth.csproj">
+      <Project>{5ad0934e-f6c4-4ae5-83af-c788313b2a87}</Project>
+      <Name>SteamAuth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SteamTrade\SteamTrade.csproj">
       <Project>{40e02afe-4588-4fb4-b7fc-f3a4e17bbd17}</Project>
       <Name>SteamTrade</Name>

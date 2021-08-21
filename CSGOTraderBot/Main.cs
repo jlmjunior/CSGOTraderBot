@@ -1,4 +1,6 @@
 ﻿using CSGOTraderBot.Services;
+using Newtonsoft.Json;
+using SteamAuth;
 using SteamTrade.Models;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,15 @@ namespace CSGOTraderBot
 
                 _timerBot.Tick += new EventHandler(Timer_Tick);
             }
+        }
+
+        private void AddAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string json = "{ \"shared_secret\": \"a1gVn4lJUqFSfsv/EsVpvbuz2u4=\", \"serial_number\": \"8116970612227285651\", \"revocation_code\": \"R64023\", \"uri\": \"otpauth://totp/Steam:viniciusvmt19986?secret=NNMBLH4JJFJKCUT6ZP7RFRLJXW53HWXO&issuer=Steam\", \"server_time\":1616071072,\"account_name\": \"viniciusvmt19986\", \"token_gid\": \"27ede7ae7ec4b093\", \"identity_secret\": \"wl2ngKwLc7Ule7L+pErI9gAHSQU=\", \"secret_1\": \"W0N6zv8A0bI+8C5SJ3q63Ppv6oU=\", \"status\":1, \"device_id\": \"android:9f592f22-0597-4106-8088-2266673d1f90\", \"fully_enrolled\":true, \"Session\":{ \"SessionID\": \"4490be870d9d304fdab415bc\", \"SteamLogin\": \"76561199029413489%7C%7CBBC93DAFCD04B42F8105D160A6E001F07931B0D6\", \"SteamLoginSecure\": \"76561199029413489%7C%7C98C20BF805DC739E67E9C7B9A1DD7AE71E2C789F\", \"WebCookie\": \"534CDE22514DFE439DF2B27DE479CE70E4B9187B\", \"OAuthToken\": \"8d0216f990d6d3ec85706191e7426f53\", \"SteamID\":76561199029413489}}";
+
+            var result = JsonConvert.DeserializeObject<SteamGuardAccount>(json);
+
+            var te = result.FetchConfirmations();
         }
 
         private void ResetConfig()
@@ -153,6 +164,5 @@ namespace CSGOTraderBot
             txtBoxStatus.Text += $"[{DateTime.Now}] {message}" + Environment.NewLine;
         }
         #endregion
-
     }
 }
