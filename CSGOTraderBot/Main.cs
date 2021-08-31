@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,28 @@ namespace CSGOTraderBot
         public Main()
         {
             InitializeComponent();
-            InitializeTimer();
-            ResetConfig();
+
+            try
+            {
+                InitializeTimer();
+                InitializeAccount();
+                ResetConfig();
+            }
+            catch (Exception ex)
+            {
+                Helper.Log.SaveError(ex.ToString());
+                throw ex;
+            }
+        }
+
+        private void InitializeAccount()
+        {
+            var steamGuardAccount = Helper.SteamSettings.GetRemoteAccount();
+
+            if (steamGuardAccount != null && !string.IsNullOrWhiteSpace(steamGuardAccount.AccountName))
+            {
+                SetRemoteAccount(steamGuardAccount.AccountName);
+            }
         }
 
         private void InitializeTimer()
@@ -42,11 +63,32 @@ namespace CSGOTraderBot
 
         private void AddAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string json = "";
+            var remoteAccountResult = GetJsonRemoteAccount();
 
-            var result = JsonConvert.DeserializeObject<SteamGuardAccount>(json);
+            if (remoteAccountResult.Success)
+            {
+                var propertyremoteAccount = remoteAccountResult.Additional
+                    .GetType()
+                    .GetProperty("json");
 
-            var te = result.FetchConfirmations();
+                var valueRemoteAccount = propertyremoteAccount.GetValue(remoteAccountResult.Additional);
+                string json = valueRemoteAccount.ToString();
+                
+                var resultValidationAccount = new RemoteAccountValidation(json).ShowDialog();
+
+                if (resultValidationAccount == DialogResult.OK)
+                {
+                    var steamGuardAccount = JsonConvert.DeserializeObject<SteamGuardAccount>(json);
+                    SetRemoteAccount(steamGuardAccount.AccountName);
+                }
+            }
+            else
+            {
+                if (remoteAccountResult.Messages?.Any() == true)
+                {
+                    MessageBox.Show(remoteAccountResult.Messages.FirstOrDefault(), "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void ResetConfig()
@@ -79,6 +121,7 @@ namespace CSGOTraderBot
             }
         }
         #endregion
+
         private void RunBot()
         {
             if (_timerBot.Enabled)
@@ -159,9 +202,79 @@ namespace CSGOTraderBot
         }
 
         #region AUX
+        private void SetRemoteAccount(string accountName)
+        {
+            string label = string.IsNullOrWhiteSpace(accountName) ? "Not linked" : accountName.Trim();
+
+            lblRemoteAccount.Text = $"Remote account: {label}";
+        }
+
         private void SendMessageScreen(string message)
         {
             txtBoxStatus.Text += $"[{DateTime.Now}] {message}" + Environment.NewLine;
+        }
+
+        private ResultModel GetJsonRemoteAccount()
+        {
+            using (var file = new OpenFileDialog())
+            {
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string extension = Path.GetExtension(file.FileName);
+
+                        if (!ValidExtensionsFile(extension))
+                            return new ResultModel
+                            {
+                                Success = false,
+                                Messages = new string[] { "Extensão de arquivo não compatível." }
+                            };
+
+                        var fileText = File.ReadAllText(file.FileName);
+
+                        return new ResultModel
+                        {
+                            Success = true,
+                            Messages = null,
+                            Additional = new
+                            {
+                                json = fileText
+                            }
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        Helper.Log.SaveError(ex.ToString());
+
+                        return new ResultModel
+                        {
+                            Success = false,
+                            Messages = new string[] { "Falha inesperada ao tentar ler o arquivo." }
+                        };
+                    }
+                }
+            }
+
+            return new ResultModel
+            {
+                Success = false,
+                Messages = null
+            };
+        }
+
+        private bool ValidExtensionsFile(string extension)
+        {
+            switch (extension.ToLower())
+            {
+                case ".mafile":
+                case ".mafiles":
+                case ".txt":
+                    return true;
+
+                default: 
+                    return false;
+            }
         }
         #endregion
     }

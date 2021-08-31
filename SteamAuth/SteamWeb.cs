@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace SteamAuth
@@ -78,10 +79,14 @@ namespace SteamAuth
                     }
                 }
             }
+            catch (SocketException e)
+            {
+                throw e;
+            }
             catch (WebException e)
             {
                 HandleFailedWebRequestResponse(e.Response as HttpWebResponse, url);
-                return null;
+                throw e;
             }
         }
 

@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_382BA5467904D1D76B018960AEB7536A"
+        "OwnerKey" = "8:_3C125981515D47299D31E4E1EFB48181"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3C125981515D47299D31E4E1EFB48181"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,12 +39,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4EC5F844C5DE4D0886BF05E044710B51"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_65154241A3E0654136200E81A7C803E9"
         "OwnerKey" = "8:_3C125981515D47299D31E4E1EFB48181"
         "MsmSig" = "8:_UNDEFINED"
@@ -52,7 +52,19 @@
         "Entry"
         {
         "MsmKey" = "8:_984080D38879A13A9213807F2AB2F438"
+        "OwnerKey" = "8:_382BA5467904D1D76B018960AEB7536A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_984080D38879A13A9213807F2AB2F438"
         "OwnerKey" = "8:_65154241A3E0654136200E81A7C803E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D5651A32A5F04F7E8DB11F600CE5A265"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -65,6 +77,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_65154241A3E0654136200E81A7C803E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_382BA5467904D1D76B018960AEB7536A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -136,6 +154,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -166,6 +192,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_382BA5467904D1D76B018960AEB7536A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SteamAuth, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_382BA5467904D1D76B018960AEB7536A"
+                    {
+                    "Name" = "8:SteamAuth.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SteamAuth.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FCDA70DEC17842F1997FF4147DF6DF3D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4D49562E1ED892CC499E244DF4DE139C"
             {
             "AssemblyRegister" = "3:1"
@@ -195,26 +252,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4EC5F844C5DE4D0886BF05E044710B51"
-            {
-            "SourcePath" = "8:C:\\Users\\jlmju\\OneDrive\\Área de Trabalho\\error.txt"
-            "TargetName" = "8:error.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_7425ABCC7BCB45A185CD8589520D1058"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_65154241A3E0654136200E81A7C803E9"
@@ -277,6 +314,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5651A32A5F04F7E8DB11F600CE5A265"
+            {
+            "SourcePath" = "8:..\\CSGOTraderBot\\bin\\Debug\\Logs\\error.txt"
+            "TargetName" = "8:error.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_7425ABCC7BCB45A185CD8589520D1058"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
