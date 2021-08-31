@@ -18,6 +18,7 @@ namespace CSGOTraderBot
     public partial class Main : Form
     {
         private Timer _timerBot;
+        private static readonly object _lockBot = new object();
 
         public Main()
         {
@@ -112,7 +113,23 @@ namespace CSGOTraderBot
         {
             try
             {
-                RunBot();
+                Task.Run(() => 
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        btnStart.Enabled = false;
+                    }));
+
+                    lock (_lockBot)
+                    {
+                        RunBot();
+                    }
+
+                    this.Invoke(new Action(() =>
+                    {
+                        btnStart.Enabled = true;
+                    }));
+                });
             }
             catch (Exception ex)
             {
@@ -126,32 +143,54 @@ namespace CSGOTraderBot
         {
             if (_timerBot.Enabled)
             {
-                _timerBot.Stop();
-
-                btnStart.Text = "Start";
-                lblInfo.Text = "Ready";
-
-                SendMessageScreen("Serviço pausado.");
+                this.Invoke(new Action(() =>
+                {
+                    _timerBot.Stop();
+                    btnStart.Text = "Start";
+                    lblInfo.Text = "Ready";
+                    SendMessageScreen("Serviço pausado.");
+                }));
             }
             else
             {
-                Application.DoEvents();
                 Steam steam = new Steam();
 
-                SendMessageScreen("Verificando autenticação com a steam");
+                #region VALIDAÇÃO
+                this.Invoke(new Action(() =>
+                {
+                    SendMessageScreen("Verificando autenticação da conta remota");
+                }));
 
-                var result = Task.Run(() => steam.CheckLogin()).Result;
-                result.Message.ForEach(m => SendMessageScreen($"{m}"));
+                var remoteAccount = Helper.SteamSettings.GetRemoteAccount();
+                var resultRemote = Task.Run(() => steam.CheckRemoteAccount(remoteAccount)).Result;
+                resultRemote.Message.ForEach(m => this.Invoke(new Action(() =>
+                {
+                    SendMessageScreen($"{m}");
+                })));
 
-                if (result.Success)
+                if (!resultRemote.Success) return;
+
+                this.Invoke(new Action(() =>
+                {
+                    SendMessageScreen("Verificando autenticação dos cookies com a steam");
+                }));
+                
+                var resultSteamCookies = Task.Run(() => steam.CheckLogin()).Result;
+                resultSteamCookies.Message.ForEach(m => this.Invoke(new Action(() =>
+                {
+                    SendMessageScreen($"{m}");
+                })));
+
+                if (!resultSteamCookies.Success) return;
+                #endregion
+
+                this.Invoke(new Action(() =>
                 {
                     _timerBot.Start();
-
                     btnStart.Text = "Stop";
                     lblInfo.Text = "Running...";
-
                     SendMessageScreen("Serviço inicializado.");
-                }
+                }));
             }   
         }
         
@@ -165,6 +204,10 @@ namespace CSGOTraderBot
 
         private void BackgroundWorkerBot_DoWork(object sender, DoWorkEventArgs e)
         {
+            this.Invoke(new Action(() =>
+            {
+                SendMessageScreen("Rodou");
+            }));
             #region CSGO500
             if (chkBoxCSGO500.Checked)
             {

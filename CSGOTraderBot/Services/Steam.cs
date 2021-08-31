@@ -1,4 +1,5 @@
 ﻿using CSGOTraderBot.Models;
+using SteamAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,36 @@ namespace CSGOTraderBot.Services
             steamOffer = new SteamTrade.Status(
                 Helper.Config.Get("sessionid", "SteamSettings"),
                 Helper.Config.Get("steamLoginSecure", "SteamSettings"));
+        }
+
+        public Task<ResultModel> CheckRemoteAccount(SteamGuardAccount account)
+        {
+            string defaultError = "Falha na autenticação";
+
+            try
+            {
+                if (account != null)
+                {
+                    var confirmations = account.FetchConfirmations();
+
+                    if (confirmations != null)
+                        return Task.FromResult(new ResultModel
+                        {
+                            Success = true,
+                            Message = new List<string> { "Sucesso na autenticação com o autenticador móvel" }
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                Helper.Log.SaveError(ex.ToString());
+            }
+
+            return Task.FromResult(new ResultModel
+            {
+                Success = false,
+                Message = new List<string>() { defaultError }
+            });
         }
 
         public Task<ResultModel> CheckLogin()
