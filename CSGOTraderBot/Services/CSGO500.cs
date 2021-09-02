@@ -145,7 +145,6 @@ namespace CSGOTraderBot.Services
                 return result;
             }
 
-
             foreach (var item in itemsWaitForTradeOffer)
             {
                 Item itemWaitForTradeOffer = null;
@@ -209,7 +208,11 @@ namespace CSGOTraderBot.Services
                 }
 
                 if (resultSteamConfirm.Success)
+                {
                     result.Message.Add($"Steam - Oferta enviada para o perfil {item.RequestOpenId} do item: {itemWaitForTradeOffer.Name}");
+
+
+                }  
                 else
                 {
                     result.Success = false;

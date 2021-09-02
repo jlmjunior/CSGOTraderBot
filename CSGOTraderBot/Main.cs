@@ -62,6 +62,23 @@ namespace CSGOTraderBot
             }
         }
 
+        private void ResetConfig()
+        {
+            Helper.Config.Set("sessionid", string.Empty, "SteamSettings");
+            //Helper.Config.Set("steamLoginSecure", string.Empty, "SteamSettings");
+        }
+
+        #region EVENTOS
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Settings().ShowDialog();
+        }
+
         private void AddAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var remoteAccountResult = GetJsonRemoteAccount();
@@ -74,7 +91,7 @@ namespace CSGOTraderBot
 
                 var valueRemoteAccount = propertyremoteAccount.GetValue(remoteAccountResult.Additional);
                 string json = valueRemoteAccount.ToString();
-                
+
                 var resultValidationAccount = new RemoteAccountValidation(json).ShowDialog();
 
                 if (resultValidationAccount == DialogResult.OK)
@@ -90,23 +107,6 @@ namespace CSGOTraderBot
                     MessageBox.Show(remoteAccountResult.Messages.FirstOrDefault(), "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void ResetConfig()
-        {
-            Helper.Config.Set("sessionid", string.Empty, "SteamSettings");
-            //Helper.Config.Set("steamLoginSecure", string.Empty, "SteamSettings");
-        }
-
-        #region Events
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Settings().ShowDialog();
         }
 
         private void BtnStart_Click(object sender, EventArgs e)
@@ -208,6 +208,7 @@ namespace CSGOTraderBot
             {
                 SendMessageScreen("Rodou");
             }));
+
             #region CSGO500
             if (chkBoxCSGO500.Checked)
             {

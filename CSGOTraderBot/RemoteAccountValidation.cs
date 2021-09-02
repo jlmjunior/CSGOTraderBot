@@ -45,6 +45,8 @@ namespace CSGOTraderBot
                 var steamGuardAccount = JsonConvert.DeserializeObject<SteamGuardAccount>(_jsonRemoteAccount);
                 var confirmations = steamGuardAccount.FetchConfirmations();
 
+                steamGuardAccount.AcceptConfirmation()
+
                 if (confirmations != null)
                 {
                     Helper.Config.Set("remoteAccount", _jsonRemoteAccount, "SteamSettings");
