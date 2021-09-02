@@ -67,6 +67,7 @@ namespace CSGOTraderBot.UserControls
             // txtBoxSteamId
             // 
             this.txtBoxSteamId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxSteamId.Enabled = false;
             this.txtBoxSteamId.Location = new System.Drawing.Point(145, 69);
             this.txtBoxSteamId.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxSteamId.Name = "txtBoxSteamId";
@@ -133,6 +134,7 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSteamMachineAuth
             // 
             this.txtBoxCookieSteamMachineAuth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxCookieSteamMachineAuth.Enabled = false;
             this.txtBoxCookieSteamMachineAuth.Location = new System.Drawing.Point(145, 151);
             this.txtBoxCookieSteamMachineAuth.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSteamMachineAuth.Name = "txtBoxCookieSteamMachineAuth";
@@ -142,6 +144,7 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSteamRememberLogin
             // 
             this.txtBoxCookieSteamRememberLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxCookieSteamRememberLogin.Enabled = false;
             this.txtBoxCookieSteamRememberLogin.Location = new System.Drawing.Point(145, 110);
             this.txtBoxCookieSteamRememberLogin.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSteamRememberLogin.Name = "txtBoxCookieSteamRememberLogin";
@@ -160,7 +163,6 @@ namespace CSGOTraderBot.UserControls
             // txtBoxCookieSteamLoginSecure
             // 
             this.txtBoxCookieSteamLoginSecure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxCookieSteamLoginSecure.Enabled = false;
             this.txtBoxCookieSteamLoginSecure.Location = new System.Drawing.Point(145, 69);
             this.txtBoxCookieSteamLoginSecure.Margin = new System.Windows.Forms.Padding(9);
             this.txtBoxCookieSteamLoginSecure.Name = "txtBoxCookieSteamLoginSecure";

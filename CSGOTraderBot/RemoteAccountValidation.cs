@@ -43,13 +43,18 @@ namespace CSGOTraderBot
             try
             {
                 var steamGuardAccount = JsonConvert.DeserializeObject<SteamGuardAccount>(_jsonRemoteAccount);
+
+                steamGuardAccount.RefreshSession();
                 var confirmations = steamGuardAccount.FetchConfirmations();
 
-                steamGuardAccount.AcceptConfirmation()
+                //steamGuardAccount.AcceptConfirmation()
 
                 if (confirmations != null)
                 {
-                    Helper.Config.Set("remoteAccount", _jsonRemoteAccount, "SteamSettings");
+                    var jsonResult = JsonConvert.SerializeObject(steamGuardAccount);
+                    Helper.Config.Set("remoteAccount", jsonResult, "SteamSettings");
+                    Helper.Config.Set("steamLoginSecure", steamGuardAccount.Session.SteamLoginSecure, "SteamSettings");
+                    Helper.Config.Set("sessionid", steamGuardAccount.Session.SessionID, "SteamSettings");
 
                     e.Result = true;
                 }

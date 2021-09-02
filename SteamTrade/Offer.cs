@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using SteamTrade.Models;
+using SteamTrade.Models.CsgoOffer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +16,7 @@ namespace SteamTrade
     {
         private readonly Request request;
 
-        private readonly string _sessionId;
+        private string _sessionId;
         private string _steamLoginSecure;
 
         public Offer(string sessionId, string steamLoginSecure)
@@ -28,6 +30,11 @@ namespace SteamTrade
         public void SetSteamLoginSecure(string value)
         {
             _steamLoginSecure = value;
+        }
+
+        public void SetSessionId(string value)
+        {
+            _sessionId = value;
         }
 
         public async Task<ResultModel> Send(OfferModel offer)
@@ -58,17 +65,28 @@ namespace SteamTrade
             };
 
             var result = await request.PostAsync("https://steamcommunity.com/tradeoffer/new/send", cookies, formBody, offer.TradeLink);
+            ResponseCreateOffer responseOffer = null;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var resultContent = await result.Content.ReadAsStringAsync();
+                responseOffer = JsonConvert.DeserializeObject<ResponseCreateOffer>(resultContent);
+            }
+
+            HttpStatusCode resultStatus = result.IsSuccessStatusCode ? HttpStatusCode.OK : result.StatusCode;
+            result.Dispose();
 
             #region RESULTS
-            if (result.IsSuccessStatusCode)
+            if (resultStatus == HttpStatusCode.OK)
             {
                 return new ResultModel()
                 {
                     Success = true,
-                    Messages = null
+                    Messages = null,
+                    Additional = responseOffer
                 };
             }
-            else if (result.StatusCode == HttpStatusCode.Unauthorized)
+            else if (resultStatus == HttpStatusCode.Unauthorized)
             {
                 return new ResultModel()
                 {

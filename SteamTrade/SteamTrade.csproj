@@ -49,6 +49,7 @@
     <Compile Include="Login.cs" />
     <Compile Include="Models\CookieResultModel.cs" />
     <Compile Include="Models\CsgoOffer\JsonTradeOfferModel.cs" />
+    <Compile Include="Models\CsgoOffer\ResponseCreateOffer.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\CsgoOffer\OfferModel.cs" />
     <Compile Include="Offer.cs" />

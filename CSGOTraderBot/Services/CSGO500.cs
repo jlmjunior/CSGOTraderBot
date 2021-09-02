@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using System;
+using SteamTrade.Models.CsgoOffer;
 
 namespace CSGOTraderBot.Services
 {
@@ -94,8 +95,8 @@ namespace CSGOTraderBot.Services
 
             confirmInventory.ForEach(i => 
             {
-                result.Message
-                .Add($"Enviado confirmação do item: {i.Name} || Status: {i.NiceStatus} || Valor: {i.Value} || Comprador ID: {i.RequestOpenId}");
+                //result.Message
+                //.Add($"Enviado confirmação do item: {i.Name} || Status: {i.NiceStatus} || Valor: {i.Value} || Comprador ID: {i.RequestOpenId}");
 
                 var discartResult = Task.Run(() => ConfirmItem(i.Id, csrfToken)).Result;
 
@@ -198,27 +199,48 @@ namespace CSGOTraderBot.Services
                 if (!resultSteamConfirm.Success)
                 {
                     var steam = new Steam();
-                    var resultLogin = Task.Run(() => steam.CheckLogin()).Result;
+                    var resultLogin = Task.Run(() => steam.CheckAccount()).Result;
 
                     if (resultLogin.Success)
                     {
                         steamOffer.SetSteamLoginSecure(Helper.Config.Get("steamLoginSecure", "SteamSettings"));
+                        steamOffer.SetSessionId(Helper.Config.Get("sessionid", "SteamSettings"));
+
                         resultSteamConfirm = Task.Run(() => steamOffer.Send(offer)).Result;
                     }   
                 }
 
                 if (resultSteamConfirm.Success)
                 {
-                    result.Message.Add($"Steam - Oferta enviada para o perfil {item.RequestOpenId} do item: {itemWaitForTradeOffer.Name}");
+                    ResponseCreateOffer responseTradeOffer = resultSteamConfirm.Additional as ResponseCreateOffer;
 
+                    if (responseTradeOffer != null && !string.IsNullOrEmpty(responseTradeOffer.TradeofferId))
+                    {
+                        var remoteConfirmation = Task.Run(() => new Steam().SendConfirmRemoteOffer(responseTradeOffer.TradeofferId)).Result;
 
+                        if (remoteConfirmation)
+                            result.Success = true;
+                        else
+                        {
+                            result.Success = false;
+                            result.Message.Add($"Steam - {itemWaitForTradeOffer.Name} - Falha ao confirmar oferta do item no Autenticador Móvel");
+                        } 
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.Message.Add($"Steam - {itemWaitForTradeOffer.Name} - Falha ao confirmar oferta do item no Autenticador Móvel");
+                    }    
                 }  
                 else
                 {
                     result.Success = false;
-                    result.Message.Add($"Steam - Falha ao enviar o item: {itemWaitForTradeOffer.Name} para o perfil {item.RequestOpenId}");
-                    result.Message.AddRange(resultSteamConfirm.Messages);
+                    result.Message.Add($"Steam - {itemWaitForTradeOffer.Name} - Falha ao enviar o item para o perfil {item.RequestOpenId}");
+                    //result.Message.AddRange(resultSteamConfirm.Messages);
                 }
+
+                if (result.Success)
+                    result.Message.Add($"Steam - {itemWaitForTradeOffer.Name} - Sucesso ao enviar o item para o perfil {item.RequestOpenId}");
             }
 
             return result;

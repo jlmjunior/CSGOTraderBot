@@ -156,32 +156,32 @@ namespace CSGOTraderBot
                 Steam steam = new Steam();
 
                 #region VALIDAÇÃO
+                //this.Invoke(new Action(() =>
+                //{
+                //    SendMessageScreen("Verificando autenticação da conta remota");
+                //}));
+
+                //var remoteAccount = Helper.SteamSettings.GetRemoteAccount();
+                //var resultRemote = Task.Run(() => steam.CheckRemoteAccount(remoteAccount)).Result;
+                //resultRemote.Message.ForEach(m => this.Invoke(new Action(() =>
+                //{
+                //    SendMessageScreen($"{m}");
+                //})));
+
+                //if (!resultRemote.Success) return;
+
                 this.Invoke(new Action(() =>
                 {
-                    SendMessageScreen("Verificando autenticação da conta remota");
-                }));
-
-                var remoteAccount = Helper.SteamSettings.GetRemoteAccount();
-                var resultRemote = Task.Run(() => steam.CheckRemoteAccount(remoteAccount)).Result;
-                resultRemote.Message.ForEach(m => this.Invoke(new Action(() =>
-                {
-                    SendMessageScreen($"{m}");
-                })));
-
-                if (!resultRemote.Success) return;
-
-                this.Invoke(new Action(() =>
-                {
-                    SendMessageScreen("Verificando autenticação dos cookies com a steam");
+                    SendMessageScreen("Verificando autenticação com a steam");
                 }));
                 
-                var resultSteamCookies = Task.Run(() => steam.CheckLogin()).Result;
-                resultSteamCookies.Message.ForEach(m => this.Invoke(new Action(() =>
+                var resultSteam = Task.Run(() => steam.CheckAccount()).Result;
+                resultSteam.Message.ForEach(m => this.Invoke(new Action(() =>
                 {
                     SendMessageScreen($"{m}");
                 })));
 
-                if (!resultSteamCookies.Success) return;
+                if (!resultSteam.Success) return;
                 #endregion
 
                 this.Invoke(new Action(() =>
@@ -204,11 +204,6 @@ namespace CSGOTraderBot
 
         private void BackgroundWorkerBot_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.Invoke(new Action(() =>
-            {
-                SendMessageScreen("Rodou");
-            }));
-
             #region CSGO500
             if (chkBoxCSGO500.Checked)
             {
@@ -232,7 +227,7 @@ namespace CSGOTraderBot
 
                     this.Invoke(new Action(() =>
                     {
-                        SendMessageScreen("[CSGO500] Ocorreu um erro inesperado ao procurar itens para confirmação.");
+                        SendMessageScreen("[CSGO500] Ocorreu um erro inesperado.");
                     }));
                 }
             }
