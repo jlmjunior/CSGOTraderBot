@@ -245,7 +245,7 @@ namespace CSGOTraderBot
         {
             string label = string.IsNullOrWhiteSpace(accountName) ? "Not linked" : accountName.Trim();
 
-            lblRemoteAccount.Text = $"Remote account: {label}";
+            lblRemoteAccount.Text = $"Account: {label}";
         }
 
         private void SendMessageScreen(string message)

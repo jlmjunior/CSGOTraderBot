@@ -52,7 +52,7 @@ namespace CSGOTraderBot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 75);
+            this.ClientSize = new System.Drawing.Size(475, 71);
             this.ControlBox = false;
             this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -62,7 +62,7 @@ namespace CSGOTraderBot
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Remote Account Validation";
+            this.Text = "Account Validation";
             this.UseWaitCursor = true;
             this.ResumeLayout(false);
 

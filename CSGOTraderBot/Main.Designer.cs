@@ -77,14 +77,14 @@ namespace CSGOTraderBot
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -243,7 +243,7 @@ namespace CSGOTraderBot
             this.lblRemoteAccount.Name = "lblRemoteAccount";
             this.lblRemoteAccount.Size = new System.Drawing.Size(324, 23);
             this.lblRemoteAccount.TabIndex = 11;
-            this.lblRemoteAccount.Text = "Remote account: Not linked";
+            this.lblRemoteAccount.Text = "Account: Not linked";
             this.lblRemoteAccount.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Main
