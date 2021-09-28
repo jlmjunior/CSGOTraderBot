@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4ABB9F4125394E47B53638A5E4745F18"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4D49562E1ED892CC499E244DF4DE139C"
         "OwnerKey" = "8:_3C125981515D47299D31E4E1EFB48181"
         "MsmSig" = "8:_UNDEFINED"
@@ -223,6 +229,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4ABB9F4125394E47B53638A5E4745F18"
+            {
+            "SourcePath" = "8:C:\\Users\\jlmju\\Downloads\\1024px-Gnome-stock_person_bot.ico"
+            "TargetName" = "8:1024px-Gnome-stock_person_bot.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_FCDA70DEC17842F1997FF4147DF6DF3D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4D49562E1ED892CC499E244DF4DE139C"
             {
             "AssemblyRegister" = "3:1"
@@ -415,7 +441,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CSGO Trader Bot"
         "ProductCode" = "8:{B0713330-1230-4901-839F-A48D841B35B7}"
-        "PackageCode" = "8:{A86820EB-655E-494A-BC4A-D1116EFC9552}"
+        "PackageCode" = "8:{E68880D2-80FE-4C9C-9E61-46B93A3E6BF9}"
         "UpgradeCode" = "8:{5F73850D-63FB-4CB8-81FA-0593CA2ADB14}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -546,7 +572,7 @@
             "Target" = "8:_3C125981515D47299D31E4E1EFB48181"
             "Folder" = "8:_FB848642E5AB4D2B8031C7171C6DEF78"
             "WorkingFolder" = "8:_FCDA70DEC17842F1997FF4147DF6DF3D"
-            "Icon" = "8:"
+            "Icon" = "8:_4ABB9F4125394E47B53638A5E4745F18"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D9B15DA22E3341298F3D5C7F886CA8B9"
@@ -560,7 +586,7 @@
             "Target" = "8:_3C125981515D47299D31E4E1EFB48181"
             "Folder" = "8:_41C816FA9DAC413B8EDC089F3DB3AD97"
             "WorkingFolder" = "8:_FCDA70DEC17842F1997FF4147DF6DF3D"
-            "Icon" = "8:"
+            "Icon" = "8:_4ABB9F4125394E47B53638A5E4745F18"
             "Feature" = "8:"
             }
         }
