@@ -11,7 +11,7 @@ namespace CSGOTraderBot.Api
 {
     public class Post
     {
-        public async Task<string> Async(string url, List<Cookie> cookies, List<KeyValuePair<string, string>> listKeyValue)
+        public async Task<string> Async(string url, List<Cookie> cookies, List<KeyValuePair<string, string>> listKeyValue, string csrfToken = null)
         {
             string result = string.Empty;
 
@@ -35,6 +35,9 @@ namespace CSGOTraderBot.Api
 
                 client.DefaultRequestHeaders.UserAgent
                     .ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+
+                if (!string.IsNullOrEmpty(csrfToken))
+                    client.DefaultRequestHeaders.Add("csrf-token", csrfToken);
 
                 HttpResponseMessage response = await client.PostAsync(baseAddress, content);
 

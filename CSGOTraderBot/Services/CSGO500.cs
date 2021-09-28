@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System;
 using SteamTrade.Models.CsgoOffer;
+using Newtonsoft.Json.Linq;
 
 namespace CSGOTraderBot.Services
 {
@@ -100,8 +101,8 @@ namespace CSGOTraderBot.Services
 
                 var discartResult = Task.Run(() => ConfirmItem(i.Id, csrfToken)).Result;
 
-                i.Items.ToList()
-                .ForEach(x => itemsToConfirm.Add(x.AssetId));
+                if (!string.IsNullOrEmpty(discartResult))
+                    i.Items.ToList().ForEach(x => itemsToConfirm.Add(x.AssetId));
             });
 
             if (itemsToConfirm.Count > 0)
@@ -248,7 +249,7 @@ namespace CSGOTraderBot.Services
 
         private async Task<string> GetInventory()
         {
-            var response = await _get.Async("https://csgo500.com/marketplace/all/730",
+            var response = await _get.Async("https://csgo500.com/api/marketplace/all/730",
                 new List<Cookie>() { new Cookie("express.sid", Helper.Config.Get("express.sid", "CSGO500")) });
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -265,7 +266,7 @@ namespace CSGOTraderBot.Services
 
         private async Task<string> GetCsrfToken()
         {
-            var response = await _get.Async("https://csgo500.com/",
+            var response = await _get.Async("https://csgo500.com/api/boot",
                 new List<Cookie>() { new Cookie("express.sid", Helper.Config.Get("express.sid", "CSGO500")) });
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -275,17 +276,19 @@ namespace CSGOTraderBot.Services
             }
 
             string result = await response.Content.ReadAsStringAsync();
+            dynamic data = JObject.Parse(result);
             response.Dispose();
 
-            int indexInit = result.IndexOf("csrfToken") + 13;
-            int lenght = result.IndexOf("\"", indexInit) - indexInit;
+            return data.siteSettings.csrfToken;
+            //int indexInit = result.IndexOf("csrfToken") + 13;
+            //int lenght = result.IndexOf("\"", indexInit) - indexInit;
 
-            return result.Substring(indexInit, lenght);
+            //return result.Substring(indexInit, lenght);
         }
 
         private async Task<string> ConfirmItem(string itemId, string csrfToken)
         {
-            return await _post.Async("https://csgo500.com/marketplace/confirm",
+            return await _post.Async("https://csgo500.com/api/marketplace/confirm",
                 new List<Cookie>() { new Cookie("express.sid", Helper.Config.Get("express.sid", "CSGO500")) },
                 new List<KeyValuePair<string, string>>
                 {
